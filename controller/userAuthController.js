@@ -1,45 +1,26 @@
+const User = require('../model/user'); // Assuming this line refers to your user model
 
-const Joi=require('joi')
-const user=require('../model/user')
-const userSchema=Joi.Object({
-    username: Joi.string().min(3).max(30).required(),
-    email: Joi.string().email().required(),
-    password: Joi.string()
-    .min(6) // Minimum length of 8 characters
-    .max(30) // Optional maximum length (adjust based on requirements)
-    .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])')) // Requires at least one lowercase, uppercase, number, and special symbol
-    .required(),
-    confirmPassword: Joi.ref('password').label('confirmPassword').required() 
-})
-module.exports.get_signup=(req,res)=>{
-    res.render('signup')
-}
-module.exports.post_signup=async (req,res)=>{
-    const {username,password,confirmPassword,email}= req.body
-  try{ userSchema.validate(req.body)
-      if(error){ 
-        res.error("validation error has occured")
-      }
-    else{
-     try{
-     const User=user.create({username,email,password})
-     res.status(201).json(User)
-     }
-     catch(error){
-      res.error("User cannot be saved")
-     }
-    }
-}
-  catch(error){
-       res.error("error has occured in the process of validation")
+// Signup route
+module.exports.get_signup = (req, res) => {
+  res.render('signup'); // Assuming you have a "signup" template to render
+};
+
+module.exports.post_signup = async (req, res) => {
+  try {
+    console.log(req.body)
+    const user = new User(req.body);
+    await user.save();
+    res.status(201).send("The user has been registered.");
+  } catch (err) {
+    console.log(err, "An error occurred while saving the user.");
+    res.send("An error occurred.");
   }
+};
 
+module.exports.get_login = (req, res) => {
+  res.render('login');
+};
 
-
-}
-module.exports.get_login=(req,res)=>{
-    res.render('login')
-}
-module.exports.post_login=(req,res)=>{
-    res.send("new user logged in")
-}
+module.exports.post_login = (req, res) => {
+  res.send("New user logged in.");
+};
