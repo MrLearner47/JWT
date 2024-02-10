@@ -1,0 +1,13 @@
+<%- include('partials/header') %>
+
+<form>
+  <h2>Welcome to Signup</h2>
+  <lable>Username:</lable><input type="text" name="username" id="username" required>
+  <label for="email">Email:</label><input type="email" name="email" id="email">
+  <label for="password">Password:</label> <input type="password" name="password" id="password" minlength="6" max="12" required>
+ <label for="confirmPassword">Confirm-password:</label><input type="password" name="confirmPassword" id="re-password" required>
+ <br/> <br/>
+ <input type="button" value="Signup">
+</form>
+
+<%- include('partials/footer') %>

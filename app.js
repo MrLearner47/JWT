@@ -2,7 +2,7 @@ const express=require('express')
 const path= require('path')
 const app=express()
 const mongoose=require('mongoose')
-const router=require('./routes/UserAuthRouter')
+const AuthRoutes=require('./routes/UserAuthRoutes')
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('public'))
@@ -19,4 +19,4 @@ app.get('/',(req,res)=>{
 app.get('/cars',(req,res)=>{
       res.render('cars')
 })
-
+app.use(AuthRoutes)
