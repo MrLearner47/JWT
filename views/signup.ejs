@@ -2,12 +2,26 @@
 
 <form>
   <h2>Welcome to Signup</h2>
-  <lable>Username:</lable><input type="text" name="username" id="username" required>
+  <label for="username ">Username:</label><input type="text" name="username" id="username" required>
+  <div class="username error"></div>
   <label for="email">Email:</label><input type="email" name="email" id="email">
+  <div class="email error"></div>
   <label for="password">Password:</label> <input type="password" name="password" id="password" minlength="6" max="12" required>
+  <div class="password error"></div>
  <label for="confirmPassword">Confirm-password:</label><input type="password" name="confirmPassword" id="re-password" required>
+ <div class="error confirmPassword"></div>
  <br/> <br/>
- <input type="button" value="Signup">
+ <button>Sign up</button>
 </form>
+<script>
+const form=document.querySelector('form')
+form.addEventListener('submit',(e)=>{
+ e.preventDefault()
+ const username=form.username.value
+ const email=form.email.value
+ const password=form.password.value
+ const confirmPassword=form.confirmPassword.value
+})
+</script>
 
 <%- include('partials/footer') %>
