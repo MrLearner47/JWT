@@ -1,4 +1,5 @@
 const mongoose=require('mongoose')
+const bcrypt=require('bcrypt')
 const UserSchema=new mongoose.Schema({
     username:{
         type:String,
@@ -16,11 +17,14 @@ const UserSchema=new mongoose.Schema({
         lowecase:[true,"email has to be in lowercase"]
     }
 })
+UserSchema.pre('save', async function(next){
+    const salt=await bcrypt.genSalt(10)
+    this.password= await bcrypt.hash(this.password,salt)
+     next() 
+ })
 //post is a hook used to create a process after something has been done
-UserSchema.post('save',(doc,next)=>{
-    console.log("new user has been created and saved",doc)
-    next()
-})
+
+
 const User=mongoose.model('users',UserSchema)
 
 module.exports=User
