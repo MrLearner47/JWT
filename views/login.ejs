@@ -3,11 +3,23 @@
 <form>
     <h2>LOGIN</h2>
     <label for="username">Username:</label><input type="text" name="username" id="username">
+    <div class="error username"></div>
     <label for="password">Password:</label><input type="password" name="password" id="password">
-   <br/><br/>
-    <input type="button" value="login">
-    <br/><br/>
-    <input type="button" value="forgot Password">
+    <div class="error password"></div>
+   <br/>
+   <button class="button1">Log in</button>
+    
+   <button><a href="signup">Forgot password</a></button>
 </form>
+<script>
+  const button1=document.querySelector('.button1')
+  button1.addEventListener('click',(e)=>{
+    e.preventDefault()
+    const form=document.querySelector('form')
+    const username=form.username.value
+    const password=form.password.value
+    console.log(username,password)
+  })
+</script>
 
 <%- include('partials/footer') %>
