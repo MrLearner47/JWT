@@ -22,8 +22,18 @@ UserSchema.pre('save', async function(next){
     this.password= await bcrypt.hash(this.password,salt)
      next() 
  })
-//post is a hook used to create a process after something has been done
-
+//static method to login user
+UserSchema.statics.login=async function(username,password){
+  const user= await this.findOne({username})
+  if(user){
+    const auth=bcrypt.compare(password,user.password)
+    if(auth){
+        return user
+    }
+    throw new Error('incorrect password')
+  }
+  throw new Error('incorrect username')
+}
 
 const User=mongoose.model('users',UserSchema)
 
