@@ -9,9 +9,14 @@
 <body>
     <nav>
         <h1><a href="/">CREED CARS</a></h1>
+        
         <ul>
+            <% if(user) {%>
+            <li><h2>Welcome <%= user.username %></h2></li>
             <li><a href="logout">Logout</a></li>
-            <li><a href="/signup">Signup</a></li>
+            <% } else { %>
+            <li><a href="/signup" class="btn">Signup</a></li>
             <li><a href="/login">Login</a></li>
+            <% } %>
         </ul>
     </nav>
