@@ -5,7 +5,8 @@ const mongoose=require('mongoose')
 const bodyParser=require("body-parser")
 const cookieParser=require('cookie-parser')
 const AuthRoutes=require('./routes/UserAuthRoutes')
-const { requireToken } = require('./middleware/authVerfiy')
+const { requireToken,checkUser } = require('./middleware/authVerfiy')
+
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
@@ -22,7 +23,7 @@ mongoose.connect(dbUri, { useNewUrlParser: true })
   .catch((error) => {
     console.error(error);
   });
-
+app.get('*',checkUser)
 app.get('/',(req,res)=>{
     res.render('home')
 })
