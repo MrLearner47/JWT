@@ -1,9 +1,9 @@
 const jwt=require('jsonwebtoken')
 
 module.exports.requireToken= function(req,res,next){
-const token=req.cookie.jwt
+const token=req.cookies.jwt
 if(token){
-  jwt.verify(token,'iloveu',(err,decodedToken)=>{
+  jwt.verify(token,'iloveyou',(err,decodedToken)=>{
   if(err){
     console.log(err.message)
     res.redirect('/login')
